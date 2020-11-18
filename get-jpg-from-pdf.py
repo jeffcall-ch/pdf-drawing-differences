@@ -54,20 +54,26 @@ print (f"new hei: {list_of_resolutions[1][0]}")
 old_height = list_of_resolutions[0][0]
 new_height = list_of_resolutions[1][0]
 
+resized_CV2_images = []
+
 if old_height > new_height:
     # resize the old pictures
     print ("resizing old images")
     for currentImage in list_of_CV2_image_lists[0]:
         # note, that the above extracted shape tuple is in a different order as the resize function wants. Therefore reversed for usage...
-        currentImage = cv2.resize(currentImage, (list_of_resolutions[1][1],list_of_resolutions[1][0]), interpolation = cv2.INTER_AREA)
-        cv2.imwrite(r"C:\Users\50000700\Python\Python_repos\pdf-drawing-differences\pdf\temp\resized.jpg", currentImage)
+        resizedImage = cv2.resize(currentImage, (list_of_resolutions[1][1],list_of_resolutions[1][0]), interpolation = cv2.INTER_AREA)
+        cv2.imwrite(r"C:\Users\50000700\Python\Python_repos\pdf-drawing-differences\pdf\temp\resized.jpg", resizedImage)
+        resized_CV2_images.append(resizedImage)
+    list_of_CV2_image_lists[0] = resized_CV2_images
 elif new_height > old_height:
     # resize the new pictures
     print ("resizing new images")
     for currentImage in list_of_CV2_image_lists[1]:
         # note, that the above extracted shape tuple is in a different order as the resize function wants. Therefore reversed for usage...
-        currentImage = cv2.resize(currentImage, (list_of_resolutions[0][1],list_of_resolutions[0][0]), interpolation = cv2.INTER_AREA)
-        cv2.imwrite(r"C:\Users\50000700\Python\Python_repos\pdf-drawing-differences\pdf\temp\resized.jpg", currentImage)
+        resizedImage = cv2.resize(currentImage, (list_of_resolutions[0][1],list_of_resolutions[0][0]), interpolation = cv2.INTER_AREA)
+        cv2.imwrite(r"C:\Users\50000700\Python\Python_repos\pdf-drawing-differences\pdf\temp\resized.jpg", resizedImage)
+        resized_CV2_images.append(resizedImage)
+    list_of_CV2_image_lists[1] = resized_CV2_images
 else :
     # if the hei are the same for old and new
     pass
